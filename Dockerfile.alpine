@@ -1,0 +1,14 @@
+FROM library/alpine
+
+RUN BUILD_DEPS=" \
+    " \
+ && apk -U upgrade && apk add \
+    $BUILD_DEPS \
+    btrfs-progs \
+    openssl \
+    pwgen \
+ && apk del $BUILD_DEPS \
+ && rm -rf /tmp/* /var/cache/apk/*
+
+# COPY scripts /opt/escapepod
+# COPY config/crontab /etc/crontab
