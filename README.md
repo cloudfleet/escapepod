@@ -58,12 +58,12 @@ Every encrypted blob is sent to the Storage Driver along with the encrypted meta
 A storage driver must provide the following functions:
 
 1. `store_backup metadata`
-   - `Ìnput ` encrypted blob and the encrypted metadata
-   - `Output` Success
+   - `Ìnput ` encrypted metadata
+   - `Output` success
 
 2. `store_backup` 
-   - `Ìnput ` encrypted blob and the encrypted metadata
-   - `Output` Success
+   - `Ìnput ` encrypted blob
+   - `Output` Success (if fits to previously posted metadata)
 
 3. `get_last_backup_metadata`
    - `Input ` domain
