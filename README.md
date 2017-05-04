@@ -69,7 +69,7 @@ A storage driver must provide the following functions:
    - `Input ` None or uuid of backup (if none, metadata of last backup is returned)
    - `Output` encrypted metadata of backup
 
-4. `get_backup_blob`
+4. `get_backup`
    - `Input ` sha256 of requested blob
    - `Output` encrypted blob of backup
 
