@@ -12,5 +12,4 @@ RUN BUILD_DEPS=" \
  && apk del $BUILD_DEPS \
  && rm -rf /tmp/* /var/cache/apk/*
 
-# COPY scripts /opt/escapepod
-# COPY config/crontab /etc/crontab
+COPY escapepod /escapepod
