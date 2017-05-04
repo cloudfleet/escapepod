@@ -10,7 +10,7 @@ Algorithm
 
 1. If no backup exists, create full backup
 2. Get metadata of last backup
-3. If metadata matches one of the currently available snapshots, 
+3. If metadata matches one of the currently available snapshots,
    create incremental backup from this snapshot. Else got to step 1.
 
 ### Snapshotting
@@ -46,7 +46,7 @@ The keyfile wil be stored in the selected CloudFleet key space and in the escape
 
 ### Algorithm
 
-The algorithm will be aes256 [TBD variant, ctr?]
+The algorithm will be aes256 [TBD variant, cbc, ctr?]
 
 Storage
 -------
@@ -57,34 +57,30 @@ Every encrypted blob is sent to the Storage Driver along with the encrypted meta
 
 A storage driver must provide the following functions:
 
-1. `store_backup metadata`
-   - `Ìnput ` encrypted metadata
-   - `Output` success
+1. `store_backup_metadata`
+   - `Ìnput ` encrypted metadata and backup uuid
+   - `Output` Success
 
-2. `store_backup` 
-   - `Ìnput ` encrypted blob
-   - `Output` Success (if fits to previously posted metadata)
+2. `store_backup`
+   - `Ìnput ` encrypted blob and sha256 of cleartext blob
+   - `Output` Success
 
-3. `get_last_backup_metadata`
-   - `Input ` domain
-   - `Output` encrypted metadata of last backup or 404
-   
-4. `get_next_backup_metadata`
-   - `Input ` domain, sha256 of previous backup or nothing
+3. `get_backup_metadata`
+   - `Input ` None or uuid of backup (if none, metadata of last backup is returned)
    - `Output` encrypted metadata of backup
 
-5. `get_backup_blob`
+4. `get_backup_blob`
    - `Input ` sha256 of requested blob
    - `Output` encrypted blob of backup
 
-        
+
 
 Storage Drivers
 ---------------
 
 For the first implementation we will target two storage drivers.
 
-_Careful_ One set of snapshots will be kept per storage driver. If you use more than one storage 
+_Careful_ One set of snapshots will be kept per storage driver. If you use more than one storage
 drivers, you might use more disk space than expected.
 
 ### DuneSea
