@@ -1,19 +1,16 @@
-FROM library/ubuntu
+FROM library/alpine
 
 RUN BUILD_DEPS=" \
-    git \
-    make \
     " \
- && DEBIAN_FRONTEND="noninteractive" \
- && apt-get -q update && apt-get -y upgrade && apt-get -y install \
+ && apk -U upgrade && apk add \
     $BUILD_DEPS \
-    btrfs-tools \
+    btrfs-progs \
     openssl \
     pwgen \
- && apt-get -y purge $BUILD_DEPS \
- && apt-get -y autoremove \
- && apt-get -q clean \
- && rm -rf /var/lib/apt/lists/*
+    util-linux \
+    jq \
+ && apk del $BUILD_DEPS \
+ && rm -rf /tmp/* /var/cache/apk/*
 
-# COPY scripts /opt/escapepod 
+# COPY scripts /opt/escapepod
 # COPY config/crontab /etc/crontab
