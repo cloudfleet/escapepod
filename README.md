@@ -11,7 +11,7 @@ Algorithm
 1. If no backup exists, create full backup
 2. Get metadata of last backup
 3. If metadata matches one of the currently available snapshots,
-   create incremental backup from this snapshot. Else got to step 1.
+   create incremental backup from this snapshot. Else go to step 1.
 
 ### Snapshotting
 
