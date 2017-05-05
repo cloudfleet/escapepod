@@ -1,4 +1,7 @@
 #!/bin/sh
+OLD_DIR=${PWD}
+cd $(dirname "$0")
+
 ENCRYPTION_METHOD=none
 
 if [ $2 ]; then
@@ -48,3 +51,5 @@ elif [ "$1" == 'restore' ]; then
 else
   echo "use 'escape.sh backup' or 'escape.sh restore'"
 fi
+
+cd ${OLD_DIR}
