@@ -13,3 +13,4 @@ RUN BUILD_DEPS=" \
  && rm -rf /tmp/* /var/cache/apk/*
 
 COPY escapepod /escapepod
+WORKDIR /escapepod
