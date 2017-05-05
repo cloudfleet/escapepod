@@ -1,14 +1,13 @@
 #!/bin/sh
 set -e
 source $(dirname "$0")/variables.sh
-if btrfs subvolume show ${ROOT_SNAPSHOT} ; then
-  if btrfs subvolume show ${LAST_PARENT} ; then
-    btrfs subvolume delete ${LAST_PARENT}
-  fi
-  if btrfs subvolume show ${CURRENT_PARENT} ; then
+mkdir -p ${SNAPSHOTS_DIR}
+if snapshot_exists ${ROOT_SNAPSHOT} ; then
+  clear_snapshot ${LAST_PARENT}
+  if snapshot_exists ${CURRENT_PARENT} ; then
     mv ${CURRENT_PARENT} ${LAST_PARENT}
   fi
-  if btrfs subvolume show ${CURRENT_STATE} ; then
+  if snapshot_exists ${CURRENT_STATE} ; then
     mv ${CURRENT_STATE} ${CURRENT_PARENT}
   fi
   btrfs subvolume snapshot -r ${DATA_VOLUME} ${CURRENT_STATE}
