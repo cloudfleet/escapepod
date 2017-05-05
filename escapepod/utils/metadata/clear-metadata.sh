@@ -1,5 +1,5 @@
 #!/bin/sh
 source $(dirname "$0")/variables.sh
-if [ $METADATA_DIR ]; then
-  rm -rf ${METADATA_DIR}/*
+if [ $METADATA_PATH ]; then
+  rm -rf ${METADATA_PATH}/*
 fi
