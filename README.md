@@ -24,10 +24,10 @@ There are up to four snapshots, that are kept on the system.
 
 ### Metadata stored for per backup
 
-1. Size in bytes
-2. SHA512 of encrypted BLOB
+1. UUID of Snapshot
 3. Date of Snapshot
-4. UUID of Snapshot
+2. Size of cleartext BLOB in bytes
+4. SHA512 of cleartext BLOB
 5. Type (full or incremental)
 6. Metadata of Parent (if not full backup)
 

@@ -14,6 +14,15 @@ function do_backup() {
     reset_backup
   fi
   utils/btrfs/take_snapshot.sh
+  METADATA_FILE=$(utils/metadata/create_current_backup_metadata.sh)
+
+  cat ${METADATA_FILE} \
+    | ./utils/encryption/${ENCRYPTION_METHOD}/encrypt.sh \
+    | ./storage/${STORAGE_DRIVER}/store-backup-metadata.sh
+
+  ./utils/btrfs/get_current_backup.sh \
+    | ./utils/encryption/${ENCRYPTION_METHOD}/encrypt.sh \
+    | ./storage/${STORAGE_DRIVER}/store-backup-.sh $(cat ${METADATA_FILE} | jq -r .hash)
 }
 
 function check_last_backup() {
@@ -22,6 +31,7 @@ function check_last_backup() {
 
 function reset_backup() {
   utils/btrfs/clear_snapshots.sh
+  utils/metadata/clear_metadata.sh
 }
 
 
