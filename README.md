@@ -29,7 +29,7 @@ There are up to four snapshots, that are kept on the system.
 2. Size of cleartext BLOB in bytes
 4. SHA512 of cleartext BLOB
 5. Type (full or incremental)
-6. Metadata of Parent (if not full backup)
+6. UUID of Parent (if not full backup)
 
 The metadata is stored as JSON.
 
