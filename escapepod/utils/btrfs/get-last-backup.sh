@@ -7,4 +7,8 @@ if snapshot_exists ${CURRENT_PARENT} ; then
   else
     btrfs send -p ${ROOT_SNAPSHOT} ${CURRENT_PARENT}
   fi
+else
+  if snapshot_exists ${ROOT_SNAPSHOT} ; then
+    btrfs send ${ROOT_SNAPSHOT}
+  fi
 fi
