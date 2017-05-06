@@ -7,6 +7,8 @@ if snapshot_exists ${CURRENT_STATE} ; then
   else
     btrfs send -p ${ROOT_SNAPSHOT} ${CURRENT_STATE}
   fi
-else
+elif snapshot_exists ${ROOT_SNAPSHOT}; then
   btrfs send ${ROOT_SNAPSHOT}
+else
+  echo "no-local-backup"
 fi

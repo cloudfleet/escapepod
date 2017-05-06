@@ -1,5 +1,6 @@
 #!/bin/sh
 source $(dirname "$0")/variables.sh
+mkdir -p ${METADATA_PATH}
 export STORAGE_DRIVER
 BACKUP_UUID=$(uuidgen -t)
 BACKUP_DATE=$(date -u +"%Y-%m-%dT%H%M%SZ")
@@ -16,4 +17,4 @@ cat > ${METADATA_FILE} <<JSON
   "type": "$BACKUP_TYPE"
 }
 JSON
-echo METADATA_FILE
+echo ${METADATA_FILE}
