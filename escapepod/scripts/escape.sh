@@ -34,8 +34,10 @@ function check_last_backup() {
   echo "Verifying last backup ..."
   echo "Verifying metadata..."
   REMOTE_LAST_BACKUP_METADATA=$(./storage/${STORAGE_DRIVER}/get-backup-metadata.sh \
-    | ./utils/encryption/${ENCRYPTION_METHOD}/decrypt.sh)
-  LOCAL_LAST_BACKUP_METADATA=$(./utils/metadata/get-backup-metadata.sh)
+    | ./utils/encryption/${ENCRYPTION_METHOD}/decrypt.sh) \
+    | jq -c .
+  LOCAL_LAST_BACKUP_METADATA=$(./utils/metadata/get-backup-metadata.sh) \
+    | jq -c .
 
   if [ "$REMOTE_LAST_BACKUP_METADATA" == "$LOCAL_LAST_BACKUP_METADATA" ]; then
 
