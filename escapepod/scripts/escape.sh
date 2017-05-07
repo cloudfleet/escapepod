@@ -11,7 +11,8 @@ export STORAGE_DRIVER
 
 function do_backup() {
   if check_last_backup; then
-    echo "Found backup to work from"
+    LOCAL_LAST_BACKUP_UUID=$(./utils/metadata/get-backup-metadata.sh | jq -r .uuid)
+    echo "Found backup to work from (UUID: ${LOCAL_LAST_BACKUP_UUID})"
   else
     echo "No backup found. Starting with full backup"
     reset_backup
@@ -19,7 +20,7 @@ function do_backup() {
   echo "Taking snapshot..."
   utils/btrfs/take-snapshot.sh
   echo "Creating metadata"
-  METADATA_FILE=$(utils/metadata/create-current-backup-metadata.sh)
+  METADATA_FILE=$(utils/metadata/create-current-backup-metadata.sh ${LOCAL_LAST_BACKUP_UUID})
 
   echo "Created metadata for backup with id $(cat ${METADATA_FILE} | jq -r .uuid)"
 

@@ -14,7 +14,8 @@ cat > ${METADATA_FILE} <<JSON
   "date": "$BACKUP_DATE",
   "size": $BACKUP_SIZE,
   "hash": "$BACKUP_HASH",
-  "type": "$BACKUP_TYPE"
+  "type": "$BACKUP_TYPE",
+  "prev": "$1"
 }
 JSON
 echo ${METADATA_FILE}
