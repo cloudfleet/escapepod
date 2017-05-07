@@ -42,8 +42,8 @@ function check_last_backup() {
     echo "Verified metadata."
     echo "Verifying data stream..."
 
-    LOCAL_LAST_BACKUP_HASH=$(./utils/btrfs/get-current-backup.sh | sha512sum)
-    REMOTE_LAST_BACKUP_HASH=$(./storage/${STORAGE_DRIVER}/get-backup.sh ${LOCAL_LAST_BACKUP_HASH} | decrypt | sha512sum)
+    LOCAL_LAST_BACKUP_HASH=$(./utils/btrfs/get-current-backup.sh | sha512sum | awk '{print $(1)}')
+    REMOTE_LAST_BACKUP_HASH=$(./storage/${STORAGE_DRIVER}/get-backup.sh ${LOCAL_LAST_BACKUP_HASH} | decrypt | sha512sum | awk '{print $(1)}')
 
     if [ "$LOCAL_LAST_BACKUP_HASH" == "$REMOTE_LAST_BACKUP_HASH" ]; then
       echo "Verified data stream."
