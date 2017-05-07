@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 OLD_DIR=${PWD}
 cd $(dirname "$0")
 
@@ -8,6 +9,20 @@ if [ $2 ]; then
   STORAGE_DRIVER=$2
 fi
 export STORAGE_DRIVER
+export ENCRYPTION_METHOD
+
+function do_restore() {
+  if utils/btrfs/data-volume-exists.sh; then
+    echo "Data volume exists. Will not overwrite it."
+    return 1
+  fi
+
+  ./utils/restore/recursive-restore.sh
+
+  ./utils/btrfs/recreate-tree.sh
+
+}
+
 
 function do_backup() {
   if check_last_backup; then
@@ -103,7 +118,8 @@ if [ "$1" == 'backup' ]; then
   echo "doing backup"
   do_backup
 elif [ "$1" == 'restore' ]; then
-  echo "doing restore - NOT IMPLEMENTED YET"
+  echo "doing restore"
+  do_restore
 else
   echo "use 'escape.sh backup' or 'escape.sh restore'"
 fi
